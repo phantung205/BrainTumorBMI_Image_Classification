@@ -17,7 +17,7 @@ def get_args():
     return args
 
 
-def main(args,image_path,image_size):
+def main(args,image_path=None):
 
     # use th GPU if the CPU is unavailable
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -34,7 +34,7 @@ def main(args,image_path,image_size):
         exit(0)
 
     # load image
-    ori_image = cv2.imread(args.image_path)
+    ori_image = cv2.imread(image_path)
     image = cv2.cvtColor(ori_image, cv2.COLOR_BGR2RGB)
 
     #transfrom
@@ -63,4 +63,4 @@ def main(args,image_path,image_size):
 
 if __name__ == '__main__':
     args = get_args()
-    main(args, args.image_path, args.image_size)
+    main(args, args.image_path)
