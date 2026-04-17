@@ -116,5 +116,5 @@ tensorboard --logdir reports/tensorboard
 ```
 2. test thử
 ```text
-python -m inference -p (đường dẫn ảnh)
+python -m src.inference -p (đường dẫn ảnh)
 ```
