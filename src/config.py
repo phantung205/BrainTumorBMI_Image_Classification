@@ -20,3 +20,6 @@ path_tensorboard = os.path.join(report_dir,"tensorboard")
 
 
 model_dir = os.path.join(base_dir,"trained_models")
+checkpoint_path = os.path.join(model_dir,"best_cnn.pt")
+
+upload_folder = os.path.join(base_dir,"uploads")

@@ -33,10 +33,13 @@ BrainTumorMRI/
 │           ├── meningioma
 │           ├── notumor
 │           └── pituitary
+├── deploy
 ├── reports
 │   └── tensorboard
 ├── src
-└── trained_models
+├── templates
+├── trained_models
+└── uploads
 ```
 ## 4 Dataset
 
@@ -101,12 +104,22 @@ trained_models/last_cnn.pt
 
 ---
 ## 8. chạy docker file
-
+### 8.1 build docker image
 ```bash
 docker build -t braintumor .
-
-docker run  --rm --gpus all -v ${PWD}/data/raw:/BrainTumor/data/raw -v ${PWD}/trained_models:/BrainTumor/trained_models  braintumor 
 ```
+
+### 8.2 vào trong container
+```bash
+docker run -it --rm --gpus all -v ${PWD}/data/raw:/BrainTumor/data/raw -v ${PWD}/trained_models:/BrainTumor/trained_models -v ${PWD}/uploads:/BrainTumor/uploads  braintumor bash
+```
+sau khi vào xong chạy lệnh train model như 7.1 để lấy check point
+
+### 8.3 nếu có checkpoint chạy luôn app
+```bash
+docker run  --rm -p 5000:5000 --gpus all -v ${PWD}/trained_models:/BrainTumor/trained_models -v ${PWD}/uploads:/BrainTumor/uploads  braintumor 
+```
+
 
 ## 9. xem quá trình train và triển khai test thử
 
@@ -118,3 +131,14 @@ tensorboard --logdir reports/tensorboard
 ```text
 python -m src.inference -p (đường dẫn ảnh)
 ```
+
+## 10. Chạy ứng dụng wed
+
+```bash
+python app.py
+```
+Mặc định ứng dụng chạy tại:
+
+http://127.0.0.1:5000
+
+---

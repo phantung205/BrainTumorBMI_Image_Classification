@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dự đoán ảnh</title>
+</head>
+<body>
+    <h1>dự đoán hình ảnh bệnh khối u não: </h1>
+    {% if error %}
+        <p style="color=red;">lỗi: {{error}}</p>
+    {% endif %}
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" accept=".jpg,.png" name="image" required>
+        <button type="submit" >dự đoán</button>
+    </form>
+
+    {% if result %}
+        <h2>kêt quả dự đoán</h2>
+        <p>
+            Loại khối u:
+            <b>{{ result["class"] }}</b>
+        </p>
+        <p>
+            Độ tin cậy:
+            <b>{{ "%.2f"|format(result["confidence"]*100) }}%</b>
+        </p>
+
+        <img src="{{ url_for('uploaded_file', filename=image_name) }}" width="300">
+
+    {% endif %}
+</body>
+</html>

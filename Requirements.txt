@@ -7,3 +7,4 @@ tensorboard
 numpy
 pillow
 tqdm
+flask

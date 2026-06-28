@@ -10,9 +10,9 @@ import numpy as np
 
 def get_args():
     parser = ArgumentParser(description="BrainTumorMRI CNN inference")
-    parser.add_argument("--image-path","-p",type=str,default=None)
+    parser.add_argument("--image-path","-p",type=str,default="Te-gl_1.jpg")
     parser.add_argument("--image-size","-i",type=int,default=config.image_size,help="image size")
-    parser.add_argument("--checkpoint","-c",type=str,default="trained_models/best_cnn.pt")
+    parser.add_argument("--checkpoint","-c",type=str,default="../trained_models/best_cnn.pt")
     args = parser.parse_args()
     return args
 
@@ -60,6 +60,8 @@ def main(args,image_path=None):
     print("the test image is abount {} with confident score of {:.4f}".format(predicted_class, probabirity[0, max_idx]))
     cv2.imshow("{} : {:.2f}%".format(predicted_class, probabirity[0, max_idx] * 100), ori_image)
     cv2.waitKey(0)
+
+
 
 if __name__ == '__main__':
     args = get_args()
